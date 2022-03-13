@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./redux/reducers";
+import { ActionType } from "./redux/reducers/bankReducers/actionTypes";
 
 function App() {
+  const money = useSelector((state: RootState) => state.bank);
+  const dispatch = useDispatch();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="app">
+      <div className="app_modal">
+        {money}
+        <button
+          className="app_button"
+          onClick={() => {
+            dispatch({ type: ActionType.DEPOSIT_REQUEST, payload: 1000 });
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          Deposit
+        </button>
+
+        <button
+          className="app_button"
+          onClick={() => {
+            dispatch({ type: ActionType.WITHDRAW_REQUEST, payload: 1000 });
+          }}
+        >
+          WithDraw
+        </button>
+
+        <button
+          className="app_button"
+          onClick={() => {
+            dispatch({ type: ActionType.BANKRUPT_REQUEST });
+          }}
+        >
+          BankRupt
+        </button>
+      </div>
     </div>
   );
 }
